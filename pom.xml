@@ -1,14 +1,142 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.ecs</groupId>
-  <artifactId>ecs-pom</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>ecs-com</module>
-  	<module>esc-mybatis</module>
-  	<module>ecs-adm</module>
-  	<module>ecs-api</module>
-  	<module>ecs-web</module>
-  </modules>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ecs</groupId>
+	<artifactId>ecs-pom</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>ecs-com</module>
+		<module>esc-mybatis</module>
+		<module>ecs-adm</module>
+		<module>ecs-api</module>
+		<module>ecs-web</module>
+	</modules>
+
+
+	<properties>
+		<java.version>17</java.version>
+		<maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+		<maven.compiler.version>3.9.0</maven.compiler.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<javax.servletapi.version>4.0.1</javax.servletapi.version>
+		<spring.redis.version>3.0.4</spring.redis.version>
+		<log4j2.version>3.0.4</log4j2.version>
+		<!--<lombok.version>1.18.8</lombok.version>-->
+		<lombok.version>1.18.30</lombok.version>
+		<aspectjrt.version>1.9.19</aspectjrt.version>
+		<!--<springframework.version>6.0.7</springframework.version>-->
+		<springframework.version>6.0.13</springframework.version>
+		<spring.boot.version>3.0.4</spring.boot.version>
+		<tomcat.version>10.0.27</tomcat.version>
+		<servletapi.version>4.0.1</servletapi.version>
+		<jackson.version>2.14.2</jackson.version>
+		<commons.io.version>2.11.0</commons.io.version>
+		<spring-data-redis.version>3.1.5</spring-data-redis.version>
+		<cloning.version>1.9.12</cloning.version>
+	</properties>
+
+	<dependencyManagement>
+
+		<dependencies>
+			<dependency>
+				<groupId>com.ecs</groupId>
+				<artifactId>ecs-com</artifactId>
+			</dependency>
+
+			<dependency>
+				<groupId>com.ecs</groupId>
+				<artifactId>ecs-mybatis</artifactId>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectjrt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${springframework.version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- For Testing Begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+		<!-- For Testing End -->
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring-data-redis.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>uk.com.robust-it</groupId>
+			<artifactId>cloning</artifactId>
+			<version>${cloning.version}</version>
+		</dependency>
+
+	</dependencies>
+
 </project>
+
+
+
+
+
+
+

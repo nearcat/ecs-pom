@@ -3,7 +3,194 @@
 	<parent>
 		<groupId>com.ecs</groupId>
 		<artifactId>ecs-pom</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>ecs-api</artifactId>
+
+	<properties>
+		<spring-webmvc.version>6.0.13</spring-webmvc.version>
+		<servlet.jsp.jstl.version>3.0.1</servlet.jsp.jstl.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.boot.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring.boot.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-servlet</artifactId>
+			<version>3.0.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-jsp</artifactId>
+			<version>3.0.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ecs</groupId>
+			<artifactId>ecs-com</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<deployTarget>local</deployTarget>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<deployTarget>dev</deployTarget>
+			</properties>
+		</profile>
+		<profile>
+			<id>stg</id>
+			<properties>
+				<deployTarget>stg</deployTarget>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<deployTarget>prod</deployTarget>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+
+		<finalName>dfs-web-mo</finalName>
+
+		<plugins>
+
+<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+<!--			<version>3.8.1</version>-->
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+
+					<webResources>
+						<webResource>
+							<directory>src/main/resources/${deployTarget}/</directory>
+							<targetPath>WEB-INF/classes/resources</targetPath>
+						</webResource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<directory>src/main/resources/.ebextensions</directory>
+							<targetPath>.ebextensions</targetPath>
+							<filtering>true</filtering>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
+				<configuration>
+					<warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+
+					<webResources>
+						<resource>
+							<directory>src/main/resources/env/${deployTarget}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>application.properties</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>src/main/resources/env/${deployTarget}</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>log4j2.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>src/main/resources/env/${deployTarget}</directory>
+							<targetPath>.ebextensions/efs</targetPath>
+							<includes>
+								<include>efs-log-mountfilesystem.config</include>
+							</includes>
+						</resource>
+					</webResources>
+
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
 </project>
